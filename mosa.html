@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="mosa.css">
+
+    <title>磨莎堂 Formosa</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="nav">
+            <div class="nav-logo mt-2">
+                <div class="nav-logo-contain">
+                    <a href="mosa.html" class="logo-a" @click='index=1'>
+                        <h3>磨莎堂 formosa</h3>
+                    </a>
+                </div>
+
+                <div class="nav-icon">
+                    <a href="#"><i class="nav-icon-use fa fa-user mt-2 mr-3" aria-hidden="true" id=""
+                            @click='index=2'>登入</i></a>
+                    <!-- <a href="#"><i class="nav-icon-use fa fa-shopping-cart mt-2" aria-hidden="true" id="" @click='index=3'>購物車</i></a> -->
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <!----------首頁內容---------------->
+        <div v-show='index==1'>
+            <div class="contain">
+                <div class="contain-img">
+                    <img class="backimg" src="img/hooo.png" alt="">
+                </div>
+            </div>
+
+
+            <div class="contain-shop1" id="contain-shop1">
+                <div class="contain-shop">
+                    <div class="contain-list">
+                        <div>
+                            <a href="#" @click='item=1'>
+                                <i class="fa fa-gift" aria-hidden="true"><span>全部商品</span></i>
+                            </a>
+                            <a href="#" @click='item=2'>
+                                <i class="fa fa-gift" aria-hidden="true"><span>特色蛋糕</span></i>
+                            </a>
+                            <a href="#" @click='item=3'>
+                                <i class="fa fa-gift" aria-hidden="true"><span>賀年糕點</span></i>
+                            </a>
+                            <a href="#" @click='item=4'>
+                                <i class="fa fa-gift" aria-hidden="true"><span>麵包</span></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-------------全部商品區------------->
+
+                    <div class="shop" v-show='item==1'>
+
+                        <div class="shop-list1" v-for='(item,index) in products1'>
+                            <a href="#"><img :src="item.photo" alt=""></a>
+                            <div class="shop-lable">
+                                <p>{{item.itemclass}}</p>
+                            </div>
+                            <h4 class="item-name">{{item.itemname}}</h4>
+                            <p id="shop-list-narrative"> {{item.itemnar}} </p>
+                            <div class="shop-list-footer">
+                                <p>${{item.itemprice}}</p>
+                                <i class="fa fa-gift" aria-hidden="true" @click='addTocar(index,item.id)'></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!----------------特色蛋糕區------------------->
+
+                    <div class="shop" v-show='item==2'>
+
+                        <div class="shop-list1" v-for='(item,index) in products'>
+                            <a href="#"><img :src="item.photo" alt=""></a>
+                            <div class="shop-lable">
+                                <p>{{item.itemclass}}</p>
+                            </div>
+                            <h4 class="item-name">{{item.itemname}}</h4>
+                            <p id="shop-list-narrative"> {{item.itemnar}} </p>
+                            <div class="shop-list-footer">
+                                <p>${{item.itemprice}}</p>
+                                <i class="fa fa-gift" aria-hidden="true" @click='addTocar(index,item.id)'></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!----------------賀年糕點區------------------->
+
+                    <div class="shop" v-show='item==3'>
+
+                        <div class="shop-list1" v-for='(item,index) in products3'>
+                            <a href="#"><img :src="item.photo" alt=""></a>
+                            <div class="shop-lable">
+                                <p>{{item.itemclass}}</p>
+                            </div>
+                            <h4 class="item-name">{{item.itemname}}</h4>
+                            <p id="shop-list-narrative"> {{item.itemnar}} </p>
+                            <div class="shop-list-footer">
+                                <p>${{item.itemprice}}</p>
+                                <i class="fa fa-gift" aria-hidden="true" @click='addTocar(index,item.id)'></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!----------------麵包區------------------->
+
+                    <div class="shop" v-show='item==4'>
+
+                        <div class="shop-list1" v-for='(item,index) in products4'>
+                            <a href="#"><img :src="item.photo" alt=""></a>
+                            <div class="shop-lable">
+                                <p>{{item.itemclass}}</p>
+                            </div>
+                            <h4 class="item-name">{{item.itemname}}</h4>
+                            <p id="shop-list-narrative"> {{item.itemnar}} </p>
+                            <div class="shop-list-footer">
+                                <p>${{item.itemprice}}</p>
+                                <i class="fa fa-gift" aria-hidden="true" @click='addTocar(index,item.id)'></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <div class="shop-car">
+                <i class="fa fa-shopping-cart" aria-hidden="true" @click='showlist()'></i>
+                <span class="incar-length"> {{incarle}} </span>
+                <div class="shop-car-list">
+                    <h6>已選擇的商品</h6>
+                    <hr style="border: 1px solid rgb(138, 138, 138); margin: 5px;">
+                    <div>
+                        <table class="shop-car-table" cellspacing="3">
+                            <thead style="font-size: 16px; color: rgb(138, 138, 138);">
+                                <td></td>
+                                <td>商品名稱</td>
+                                <td>價格</td>
+                                <td>數量</td>
+                            </thead>
+                            <tbody v-for="(newlist,index) in incar" style="font-size: 16px; ">
+                                <tr>
+                                    <td><img :src="newlist.photo" alt="" style="max-width: 50px;"></td>
+                                    <td> {{newlist.itemname}} </td>
+                                    <td> ${{newlist.itemprice}} </td>
+                                    <td> {{newlist.num}} </td>
+                                    <td>
+                                        <div class="btn btn-danger btn-xs" @click="addnum(index)">+</div>
+                                    </td>
+                                    <td>
+                                        <div class="btn btn-danger btn-xs" @click="subnum(index)">-</div>
+                                    </td>
+                                    <td>
+                                        <div class="btn btn-danger btn-xs" @click="deleteincar(newlist)">x</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <h4 class="cost">總金額：${{cost}}</h4>
+                    <div class="btn-checkout">
+                        <a class="btn btn-outline-primary align-item-center justify-content-center" href="#">結帳</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div class="footer-logo-contain">
+                    <a href="#" class="footer-logo-a">
+                        <h3>磨莎堂 formosa</h3>
+                    </a>
+                </div>
+                <div style="color: white;">練習用</div>
+            </div>
+        </div>
+
+        <!--------------------登入內容------------------>
+
+        <div v-show='index==2'>
+            <div class="userlogin">
+                <div>
+                    <h3>會員登入</h3>
+                    <div class="input-admit">
+                        <input type="text" placeholder="帳號">
+                    </div>
+                    <div class="input-password">
+                        <input type="text" placeholder="密碼">
+                    </div>
+                    <div>
+                        <button>登入</button>
+                        <button @click="index=3">註冊新帳號</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--------------------註冊------------------>
+        <div v-show='index==3'>
+            <div class="userad">
+                <div>
+                    <h3>註冊</h3>
+                    <div class="ad-ad">
+                        <input type="text" placeholder="帳號">
+                    </div>
+                    <div class="ad-password">
+                        <input type="text" placeholder="密碼">
+                    </div>
+                    <div>
+                        <button class="cccc">確認註冊</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-------------------頁尾內容------------------->
+
+
+    </div>
+
+
+
+    <script src="jquery-3.4.1.js"></script>
+    <script src="vue.js"></script>
+
+
+    <script>
+
+        $('.shop-car-list').hide()
+        $('.cost').hide()
+        $('.incar-length').hide()
+        $('.btn-checkout').hide()
+
+        
+        var app = new Vue({
+            el: '#app',
+            data:
+            {
+                index: 1,
+                item: 2,
+                products1:
+                    [
+
+                        {
+                            id: 1,
+                            itemclass: '特色蛋糕',
+                            itemname: '白桃花見',
+                            itemprice: 320,
+                            itemnar: '粉嫩的桃味果凍上鋪滿豐碩圓潤的白桃，伴以晶瑩剔透的寒天，締造層次豐富、口感細膩之享受。',
+                            photo: 'img/w_1024.png'
+                        },
+
+                        {
+                            id: 2,
+                            itemclass: '特色蛋糕',
+                            itemname: '巨峰と甘王',
+                            itemnar: '「日本の巨峰と甘王」蛋糕面層鋪滿顆顆豐盈飽滿的巨峰提子果凍，一嚐頓時果汁四溢，帶來甜美多汁口感。',
+                            itemprice: 239,
+                            photo: 'img/Cutout2.jpg'
+                        },
+
+                        {
+                            id: 3,
+                            itemclass: '特色蛋糕',
+                            itemname: '足球情熱',
+                            itemnar: '綿密的綠茶蛋糕面層放置著半立體足球朱古力，以士多啤梨，芒果，奇異果，藍莓包圍著，造型可愛...',
+                            itemprice: 199,
+                            photo: 'img/football-fever.png'
+                        },
+
+                        {
+                            id: 4,
+                            itemclass: '特色蛋糕',
+                            itemname: '蜜瓜之甘熟',
+                            itemnar: '加入產自日本之蜜瓜果肉，配上有蜜瓜粒果、白朱古力脆層及蜜瓜白朱古力慕絲的豐富夾層，讓你細嚐清新...',
+                            itemprice: 239,
+                            photo: 'img/melon.png'
+                        },
+
+                        {
+                            id: 5,
+                            itemclass: '特色蛋糕',
+                            itemname: '草莓森林',
+                            itemnar: '面層鋪滿士多啤梨配以朱古力蛋糕，內有黑森林啫喱，啖啖濃郁朱古力味。',
+                            itemprice: 219,
+                            photo: 'img/black-forest-cake.png'
+                        },
+
+                        {
+                            id: 6,
+                            itemclass: '賀年糕點',
+                            itemname: '牛乳芝士蛋糕切餅',
+                            itemnar: '北海道牛乳芝士蛋糕切餅。',
+                            itemprice: 21,
+                            photo: 'img/sweet1.jpg'
+                        },
+
+                        {
+                            id: 7,
+                            itemclass: '賀年糕點',
+                            itemname: '北海道牛乳芒果卷 ',
+                            itemnar: '北海道牛乳芒果卷 。',
+                            itemprice: 20,
+                            photo: 'img/sweet2.jpg'
+                        },
+
+                        {
+                            id: 8,
+                            itemclass: '賀年糕點',
+                            itemname: '鮮果吉士撻',
+                            itemnar: '鮮果吉士撻。',
+                            itemprice: 20,
+                            photo: 'img/sweet3.jpg'
+                        },
+
+                        {
+                            id: 9,
+                            itemclass: '賀年糕點',
+                            itemname: '鬆鬆曲奇禮盒4盒',
+                            itemnar: '選用澳洲及紐西蘭牛油、低溫烘焙，保留原材料的香味。酥鬆香滑，入口即溶。',
+                            itemprice: 240,
+                            photo: 'img/cookie1.png'
+                        },
+
+                        {
+                            id: 10,
+                            itemclass: '麵包',
+                            itemname: '麵包',
+                            itemnar: '',
+                            itemprice: 50,
+                            photo: 'img/bake.png'
+                        },
+
+                    ],
+
+
+                products:
+                    [
+
+                        {
+                            id: 1,
+                            itemclass: '特色蛋糕',
+                            itemname: '白桃花見',
+                            itemprice: 320,
+                            itemnar: '粉嫩的桃味果凍上鋪滿豐碩圓潤的白桃，伴以晶瑩剔透的寒天，締造層次豐富、口感細膩之享受。',
+                            photo: 'img/w_1024.png'
+                        },
+
+                        {
+                            id: 2,
+                            itemclass: '特色蛋糕',
+                            itemname: '巨峰と甘王',
+                            itemnar: '「日本の巨峰と甘王」蛋糕面層鋪滿顆顆豐盈飽滿的巨峰提子果凍，一嚐頓時果汁四溢，帶來甜美多汁口感。',
+                            itemprice: 239,
+                            photo: 'img/Cutout2.jpg'
+                        },
+
+                        {
+                            id: 3,
+                            itemclass: '特色蛋糕',
+                            itemname: '足球情熱',
+                            itemnar: '綿密的綠茶蛋糕面層放置著半立體足球朱古力，以士多啤梨，芒果，奇異果，藍莓包圍著，造型可愛...',
+                            itemprice: 199,
+                            photo: 'img/football-fever.png'
+                        },
+
+                        {
+                            id: 4,
+                            itemclass: '特色蛋糕',
+                            itemname: '蜜瓜之甘熟',
+                            itemnar: '加入產自日本之蜜瓜果肉，配上有蜜瓜粒果、白朱古力脆層及蜜瓜白朱古力慕絲的豐富夾層，讓你細嚐清新...',
+                            itemprice: 239,
+                            photo: 'img/melon.png'
+                        },
+
+                        {
+                            id: 5,
+                            itemclass: '特色蛋糕',
+                            itemname: '草莓森林',
+                            itemnar: '面層鋪滿士多啤梨配以朱古力蛋糕，內有黑森林啫喱，啖啖濃郁朱古力味。',
+                            itemprice: 219,
+                            photo: 'img/black-forest-cake.png'
+                        }
+                    ],
+
+                products3:
+                    [
+
+                        {
+                            id: 6,
+                            itemclass: '賀年糕點',
+                            itemname: '牛乳芝士蛋糕切餅',
+                            itemnar: '北海道牛乳芝士蛋糕切餅。',
+                            itemprice: 21,
+                            photo: 'img/sweet1.jpg'
+                        },
+
+                        {
+                            id: 7,
+                            itemclass: '賀年糕點',
+                            itemname: '北海道牛乳芒果卷 ',
+                            itemnar: '北海道牛乳芒果卷 。',
+                            itemprice: 20,
+                            photo: 'img/sweet2.jpg'
+                        },
+
+                        {
+                            id: 8,
+                            itemclass: '賀年糕點',
+                            itemname: '鮮果吉士撻',
+                            itemnar: '鮮果吉士撻。',
+                            itemprice: 20,
+                            photo: 'img/sweet3.jpg'
+                        },
+
+                        {
+                            id: 9,
+                            itemclass: '賀年糕點',
+                            itemname: '鬆鬆曲奇禮盒4盒',
+                            itemnar: '選用澳洲及紐西蘭牛油、低溫烘焙，保留原材料的香味。酥鬆香滑，入口即溶。',
+                            itemprice: 240,
+                            photo: 'img/cookie1.png'
+                        },
+
+                    ],
+
+                products4:
+                    [
+
+                        {
+                            id: 10,
+                            itemclass: '麵包',
+                            itemname: '麵包',
+                            itemnar: '',
+                            itemprice: 50,
+                            photo: 'img/bake.png'
+                        },
+
+                    ],
+
+                incar: [],
+            },
+
+            methods:
+            {
+                /*新增商品至購物車裡*/
+                addTocar(index, id) {
+                    var incar = this.incar;
+
+                    console.log(id);
+
+                    var list = {
+                        id: this.products1[id - 1].id,
+                        photo: this.products1[id - 1].photo,
+                        itemname: this.products1[id - 1].itemname,
+                        itemprice: this.products1[id - 1].itemprice,
+                        num: 1
+                    }
+
+
+
+                    if (incar.length == 0) {
+                        this.incar.push(list)
+                    }
+                    else {
+                        var notincar = true
+                        for (var i = 0; i < incar.length; i++) {
+                            if (incar[i].id == id) { notincar = false }
+                            if (incar[i].id == id) { this.incar[i].num++ }
+                        }
+                    }
+                    if (notincar) { this.incar.push(list) }
+                },
+
+
+                /*購物車的加減按鈕*/
+                addnum(index) {
+                    this.incar[index].num++
+                },
+
+                subnum(index) {
+                    if (this.incar[index].num == 0) {
+                        num == 0
+                    }
+                    this.incar[index].num--
+                    if (this.incar[index].num == 0) {
+                        this.incar.splice(index, 1)
+                    }
+                },
+
+
+                /*刪除商品列*/
+                deleteincar(newlist) {
+
+                    const ndx = this.incar.indexOf(newlist)
+                    console.log(ndx)
+                    if (ndx !== -1) {
+                        this.incar.splice(ndx, 1)
+                    }
+                },
+
+                /*購物車清單的顯示和隱藏*/
+                showlist() {
+                    $('.shop-car-list').toggle(500)
+                },
+
+            },
+
+            computed: {
+                /*計算購物車清單的總金額*/
+                cost() {
+                    var cost = 0;
+                    for (let c = 0; c < this.incar.length; c++) {
+                        cost += this.incar[c].num * this.incar[c].itemprice;
+                    }
+                    if (cost > 0) { $('.cost').show(500) }
+                    if (cost == 0) { $('.cost').hide(500) }
+                    return cost;
+                },
+
+                /*購物車裡有商品會顯示清單數量，如果商品數量為0會隱藏*/
+                incarle() {
+                    var incarle = this.incar.length
+                    if (incarle >= 0) { $('.incar-length').show(500); $('.btn-checkout').show(500) }
+                    if (incarle <= 0) { $('.incar-length').hide(500); $('.btn-checkout').hide(500) }
+                    return incarle
+                }
+
+
+            }
+
+
+        })
+
+
+
+    </script>
+</body>
+
+
+
+</html>
